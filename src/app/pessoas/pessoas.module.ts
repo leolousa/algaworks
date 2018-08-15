@@ -1,3 +1,4 @@
+import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '../../../node_modules/@angular/forms';
@@ -18,6 +19,7 @@ import { CampoColoridoDirective } from './../campo-colorido.directive';
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     InputTextModule,
     ButtonModule,
     TableModule,

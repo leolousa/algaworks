@@ -1,26 +1,31 @@
+import { HttpModule } from '@angular/http';
+import { CoreModule } from './core/core.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
-import { NavbarComponent } from './navbar/navbar.component';
-import { MessageComponent } from './message/message.component';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
+import { LancamentoService } from './lancamentos/lancamento.service';
+import { PessoaService } from './pessoas/pessoa.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavbarComponent,
-    MessageComponent
+    AppComponent
   ],
   imports: [
+    CoreModule,
     BrowserModule,
+    HttpModule,
     BrowserAnimationsModule,
     LancamentosModule,
     PessoasModule
   ],
-  providers: [],
+  providers: [
+    LancamentoService,
+    PessoaService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
