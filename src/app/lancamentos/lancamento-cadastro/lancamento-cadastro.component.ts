@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../../categorias/categoria.service';
+import { ErrorHandlerService } from './../../core/error-handler.service';
+import { PessoaService } from '../../pessoas/pessoa.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -12,21 +15,41 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'Despesa', value: 'DESPESA'}
   ];
 
-  categorias = [
-    { label: 'Alimentação', value: 1},
-    { label: 'Transporte', value: 2}
-  ];
-
-  pessoas = [
-    { label: 'João da Silva', value: 1},
-    { label: 'Sebastião Gomes', value: 2},
-    { label: 'Maria do Carmo', value: 3}
-  ];
+  categorias = [];
+  pessoas = [];
 
 
-  constructor() { }
+  constructor(
+    private categoriasService: CategoriaService,
+    private pessoasService: PessoaService,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   ngOnInit() {
+    this.carregarCategorias();
+    this.carregaPessoas();
   }
 
+  carregarCategorias() {
+    return this.categoriasService.listaTodas()
+      .then(categorias => {
+        // Devemos transformar o array de categorias
+        // que tem 'codigo' e 'nome' para o tipo do PrimeNG que tem 'label' e 'value'
+        // o map itera sobre o array e retorna outro tipo
+        this.categorias = categorias.map(c => {
+          return { label: c.nome, value: c.codigo };
+        });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  carregaPessoas() {
+    return this.pessoasService.listarTodas()
+      .then(pessoas => {
+        this.pessoas = pessoas.map(p => {
+          return { label: p.nome, value: p.codigo };
+        });
+      })
+      .catch(erro => this.errorHandler.handle(erro));
+  }
 }

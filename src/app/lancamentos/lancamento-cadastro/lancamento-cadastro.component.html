@@ -34,13 +34,13 @@
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Categoria</label>
-        <p-dropdown [options]="categorias" name="categoria" ngModel  #categoria="ngModel" required
+        <p-dropdown [options]="categorias" name="categoria" ngModel #categoria="ngModel" required
           placeholder="Selecione" [autoWidth]="false"></p-dropdown>
           <app-message [control]="categoria" error="required" text="Selecione uma categoria"></app-message>
       </div>
       <div class="ui-g-12 ui-md-6 ui-fluid">
         <label>Pessoa</label>
-        <p-dropdown [options]="pessoas" name="pessoa" ngModel  #pessoa="ngModel" required
+        <p-dropdown [options]="pessoas" name="pessoa" ngModel #pessoa="ngModel" required
         placeholder="Selecione" [autoWidth]="false" [filter]="true"></p-dropdown>
         <app-message [control]="pessoa" error="required" text="Selecione uma pessoa"></app-message>
       </div>
