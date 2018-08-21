@@ -14,7 +14,6 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
-import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
@@ -35,8 +34,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
     DropdownModule,
     CurrencyMaskModule,
     MessagesModule,
-    MessageModule,
-    ToastModule
+    MessageModule
   ],
   declarations: [
     LancamentoCadastroComponent,
