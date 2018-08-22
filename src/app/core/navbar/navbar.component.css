@@ -44,3 +44,6 @@
   text-decoration: none;
 }
 
+.navbar-menuitem.ativo {
+  background-color: #494541;
+}

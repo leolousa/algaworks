@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import { MessageService } from 'primeng/api';
 
@@ -23,18 +24,43 @@ export class LancamentoCadastroComponent implements OnInit {
   categorias = [];
   pessoas = [];
   lancamento = new Lancamento();
+  titulo = '';
 
   constructor(
     private categoriasService: CategoriaService,
     private pessoasService: PessoaService,
     private lancamentoService: LancamentoService,
     private mensagem: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    const codigoLancamento = this.route.snapshot.params['codigo']; // Mostra o parâmetro enviado na rota
+
+    // Verifica se está editando o lancamento
+    if (codigoLancamento) {
+      this.titulo = 'Editar lançamento';
+      this.carregarLancamento(codigoLancamento);
+    } else {
+      this.titulo = 'Novo lançamento';
+    }
+
     this.carregarCategorias();
     this.carregaPessoas();
+  }
+
+  // Verifica se está editando
+  get editando() {
+    return Boolean(this.lancamento.codigo);
+  }
+
+  carregarLancamento(codigo: number) {
+    this.lancamentoService.buscarPorCodigo(codigo)
+      .then(lancamento => {
+        this.lancamento = lancamento;
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 
   carregarCategorias() {
@@ -61,6 +87,14 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   salvar(form: FormControl) {
+    if (this.editando) {
+      this.atualizarLancamento(form);
+    } else {
+      this.adicionarLancamento(form);
+    }
+  }
+
+  adicionarLancamento(form: FormControl) {
     this.lancamentoService.adicionar(this.lancamento)
       .then(() => {
         this.mensagem.add({
@@ -71,5 +105,17 @@ export class LancamentoCadastroComponent implements OnInit {
           this.lancamento = new Lancamento();
       })
       .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  atualizarLancamento(form: FormControl) {
+    this.lancamentoService.atualizar(this.lancamento)
+    .then(lancamento => {
+      this.lancamento = lancamento;
+      this.mensagem.add({
+        severity: 'success',
+        summary: `Lançamento alterado com sucesso!`,
+        detail: ``});
+    })
+    .catch(erro => this.errorHandler.handle(erro));
   }
 }
