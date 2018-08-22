@@ -1,5 +1,6 @@
 import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common'; // Para Angular6 devemos registrar o locale
 import localePt from '@angular/common/locales/pt';
 
@@ -17,7 +18,8 @@ registerLocaleData(localePt);
 @NgModule({
   imports: [
     CommonModule,
-    ToastModule
+    ToastModule,
+    RouterModule
   ],
   declarations: [
     NavbarComponent

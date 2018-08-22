@@ -1,5 +1,6 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '../../../node_modules/@angular/forms';
 
@@ -23,6 +24,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     SharedModule,
     InputTextModule,
     ButtonModule,
