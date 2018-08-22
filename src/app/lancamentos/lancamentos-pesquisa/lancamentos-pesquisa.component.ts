@@ -37,18 +37,16 @@ export class LancamentosPesquisaComponent implements OnInit {
   pesquisar(pagina = 0) {
     this.loading = true; // Mostra o ícone de loading na tabela
     this.filtro.pagina = pagina;
-
-    // Correção para a pesquisar forçar o retorno para a primeira página.
-    // if (this.filtro.pagina === 0) {
-    //   this.grid.first = 0;
-    // }
-
     this.lancamentoService.pesquisar(this.filtro)
-      .then(resultado => {
-        this.totalRegistros = resultado.total;
-        this.lancamentos = resultado.lancamentos;
-        this.loading = false;
-      })
+    .then(resultado => {
+      this.totalRegistros = resultado.total;
+      this.lancamentos = resultado.lancamentos;
+      this.loading = false;
+      // Correção para a pesquisar forçar o retorno para a primeira página.
+      if (pagina === 0) {
+        this.grid.first = 0;
+      }
+    })
       .catch(erro => this.errorHandler.handle(erro));
   }
 
