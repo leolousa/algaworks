@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { MessageService } from 'primeng/api';
 
@@ -32,19 +33,23 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private mensagem: MessageService,
     private errorHandler: ErrorHandlerService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private title: Title
   ) { }
 
   ngOnInit() {
+
     const codigoLancamento = this.route.snapshot.params['codigo']; // Mostra o parâmetro enviado na rota
 
     // Verifica se está editando o lancamento
     if (codigoLancamento) {
-      this.titulo = 'Editar lançamento';
+      this.titulo = 'Editar Lançamento';
       this.carregarLancamento(codigoLancamento);
     } else {
-      this.titulo = 'Novo lançamento';
+      this.titulo = 'Novo Lançamento';
     }
+    this.title.setTitle(this.titulo);
 
     this.carregarCategorias();
     this.carregaPessoas();
@@ -59,6 +64,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.buscarPorCodigo(codigo)
       .then(lancamento => {
         this.lancamento = lancamento;
+        this.atualizarTituloEdicao();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -96,13 +102,16 @@ export class LancamentoCadastroComponent implements OnInit {
 
   adicionarLancamento(form: FormControl) {
     this.lancamentoService.adicionar(this.lancamento)
-      .then(() => {
+      .then(lancamentoAdicionado => {
         this.mensagem.add({
           severity: 'success',
           summary: `Lançamento adicionado com sucesso!`,
           detail: ``});
-          form.reset();
-          this.lancamento = new Lancamento();
+          // Direciona para outra view (navegação imperativa)
+          this.router.navigate(['/lancamentos', lancamentoAdicionado.codigo]);
+          // Comentado para fazer o exemplo de navegação imperativa
+          // form.reset();
+          // this.lancamento = new Lancamento();
       })
       .catch(erro => this.errorHandler.handle(erro));
   }
@@ -115,7 +124,23 @@ export class LancamentoCadastroComponent implements OnInit {
         severity: 'success',
         summary: `Lançamento alterado com sucesso!`,
         detail: ``});
+        this.atualizarTituloEdicao();
     })
     .catch(erro => this.errorHandler.handle(erro));
+  }
+
+  novo(form: FormControl) {
+    form.reset();
+
+    // JAVASCRIPT: setTimeout utilizado para corrigir a perda do estado do formulário, as propriedades ficam nulas
+    setTimeout(function() {
+      this.lancamento = new Lancamento();
+    }.bind(this), 1);
+
+    this.router.navigate(['/lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de Lançamento: ${this.lancamento.descricao}`);
   }
 }

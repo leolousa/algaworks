@@ -2,6 +2,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { registerLocaleData } from '@angular/common'; // Para Angular6 devemos registrar o locale
+import { Title } from '@angular/platform-browser';
 import localePt from '@angular/common/locales/pt';
 
 import { ConfirmDialogModule } from 'primeng/components/confirmdialog/confirmdialog';
@@ -19,7 +20,8 @@ registerLocaleData(localePt);
   imports: [
     CommonModule,
     ToastModule,
-    RouterModule
+    RouterModule,
+    ConfirmDialogModule
   ],
   declarations: [
     NavbarComponent
@@ -34,7 +36,8 @@ registerLocaleData(localePt);
     LancamentoService,
     PessoaService,
     { provide: LOCALE_ID, useValue: 'pt-BR' },
-    ErrorHandlerService
+    ErrorHandlerService,
+    Title
   ]
 })
 export class CoreModule { }

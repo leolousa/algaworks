@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { Lancamento } from '../core/model';
 
+// Classe utilizada para repreentar o filtro na página de pesquisa lançamentos
 export class LancamentoFiltro {
   descricao: string;
   dataVencimentoInicio: Date;

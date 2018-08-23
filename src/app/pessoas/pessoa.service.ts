@@ -2,6 +2,7 @@ import { Http, URLSearchParams, Headers } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Pessoa } from '../core/model';
 
+// Classe utilizada para repreentar o filtro na página de pesquisa pessoas
 export class PessoaFiltro {
   nome: string;
   pagina = 0;
@@ -81,4 +82,30 @@ export class PessoaService {
       .then(response => response.json);
   }
 
+  // Atualiza os dados da pessoa
+  atualizar(pessoa: Pessoa): Promise<Pessoa> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(`${this.pessoasUrl}/${pessoa.codigo}`, JSON.stringify(pessoa), { headers })
+      .toPromise()
+      .then(response => {
+        const lancamentoAlterado = response.json() as Pessoa;
+        return lancamentoAlterado;
+      });
+  }
+
+  // Busca a pessoa pelo codigo
+  buscarPorCodigo(codigo: number): Promise<Pessoa> {
+    const headers = new Headers();
+    headers.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
+
+    return this.http.get(`${this.pessoasUrl}/${codigo}` , { headers })
+    .toPromise()
+    .then(response => {
+      const lancamento = response.json() as Pessoa;
+      return lancamento;
+    });
+  }
 }

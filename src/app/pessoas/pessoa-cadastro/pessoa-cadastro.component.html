@@ -46,7 +46,7 @@
       </div>
       <div class="ui-g-12">
         <button pButton type="submit" label="Salvar" [disabled]="!pessoaForm.valid"></button>&nbsp;
-        <button pButton type="submit" label="Novo" routerLink="/pessoas/nova" class="ui-button-secondary"></button>&nbsp;
+        <button pButton type="submit" label="Novo" class="ui-button-secondary" (click)="nova(pessoaForm)"></button>&nbsp;
         <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
     </div>

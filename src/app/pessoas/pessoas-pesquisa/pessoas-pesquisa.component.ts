@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
-import { PessoaFiltro, PessoaService } from './../pessoa.service';
+import { Title } from '@angular/platform-browser';
 
 import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/api';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
+import { PessoaFiltro, PessoaService } from './../pessoa.service';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -21,31 +21,34 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor (private pessoaService: PessoaService,
     private confirmacao: ConfirmationService,
     private mensagem: MessageService,
-    private errorHandler: ErrorHandlerService) {}
+    private errorHandler: ErrorHandlerService,
+    private title: Title
+  ) {}
 
   ngOnInit() {
-
+    this.title.setTitle('Pesquisa de Pessoas');
   }
 
   aoMudarPagina(event: LazyLoadEvent) {
-    // Mostra o ícone de loading na tabela
-    this.loading = true;
-    // Altera a exibição de linhas da tabela conforme escolhido pelo usuário
-    this.filtro.itensPorPagina = event.rows;
-    // Define a página onde o usuário está
-    const pagina = event.first / event.rows;
+    this.filtro.itensPorPagina = event.rows; // Altera a exibição de linhas da tabela conforme escolhido pelo usuário
+    const pagina = event.first / event.rows; // Define a página onde o usuário está
     this.pesquisar(pagina);
   }
 
   pesquisar(pagina = 0) {
 
+    this.loading = true; // Mostra o ícone de loading na tabela
     this.filtro.pagina = pagina;
     this.pessoaService.pesquisar(this.filtro)
-      .then(resultado => {
-        this.totalRegistros = resultado.total;
-        this.pessoas = resultado.pessoas;
-        this.loading = false;
-      })
+    .then(resultado => {
+      this.totalRegistros = resultado.total;
+      this.pessoas = resultado.pessoas;
+      this.loading = false;
+      // Correção para a pesquisar forçar o retorno para a primeira página.
+      if (pagina === 0) {
+        this.grid.first = 0;
+      }
+    })
       .catch(erro => this.errorHandler.handle(erro));
   }
 
@@ -71,6 +74,7 @@ export class PessoasPesquisaComponent implements OnInit {
       .catch(erro => this.errorHandler.handle(erro));
   }
 
+  // Método para alternar o status da pessoa diretamente na tabela
   alternarStatus(pessoa: any) {
     const novoStatus = !pessoa.ativo;
 
