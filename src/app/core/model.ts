@@ -1,6 +1,17 @@
 // Classe com toso os objetos modelos das entidades
 // Pode ficar em uma pasta separada com um arquivo por classe
 
+export class Estado {
+  codigo: number;
+  nome: string;
+}
+
+export class Cidade {
+  codigo: number;
+  nome: string;
+  estado = new Estado();
+}
+
 export class Pessoa {
   codigo: number;
   nome: string;

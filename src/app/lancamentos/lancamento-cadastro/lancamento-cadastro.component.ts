@@ -70,7 +70,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   carregarCategorias() {
-    return this.categoriasService.listaTodas()
+    return this.categoriasService.listarTodas()
       .then(categorias => {
         // Devemos transformar o array de categorias
         // que tem 'codigo' e 'nome' para o tipo do PrimeNG que tem 'label' e 'value'

@@ -62,7 +62,7 @@ export class PessoasPesquisaComponent implements OnInit {
   }
 
   excluir(pessoa: any) {
-    this.pessoaService.exluir(pessoa.codigo)
+    this.pessoaService.excluir(pessoa.codigo)
       .then(() => {
         this.mensagem.add({
           severity: 'success',
@@ -78,7 +78,7 @@ export class PessoasPesquisaComponent implements OnInit {
   alternarStatus(pessoa: any) {
     const novoStatus = !pessoa.ativo;
 
-    this.pessoaService.ativarDesativar(pessoa.codigo, novoStatus)
+    this.pessoaService.mudarStatus(pessoa.codigo, novoStatus)
       .then(() => {
         const acao = novoStatus ? 'ativada' : 'desativada';
         pessoa.ativo = novoStatus;

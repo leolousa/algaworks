@@ -4,6 +4,7 @@ import { LazyLoadEvent, ConfirmationService } from 'primeng/components/common/ap
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from '../../core/error-handler.service';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
+import { AuthService } from '../../seguranca/auth.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -19,6 +20,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   @ViewChild('tabela') grid; // faz o bind com o objeto do componente tabela (p-table)
 
   constructor(
+    private auth: AuthService,
     private lancamentoService: LancamentoService,
     private confirmacao: ConfirmationService,
     private mensagem: MessageService,
@@ -62,7 +64,7 @@ export class LancamentosPesquisaComponent implements OnInit {
   }
 
   excluir(lancamento: any) {
-    this.lancamentoService.exluir(lancamento.codigo)
+    this.lancamentoService.excluir(lancamento.codigo)
       .then(() => {
         this.mensagem.add({
           severity: 'success',

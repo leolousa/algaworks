@@ -1,23 +1,24 @@
 .navbar {
   padding: 10px 0;
   background-color: #1e94d2;
-
 }
 
 .navbar-toggle {
-  color: white;
+  color: #fff;
 }
 
 .navbar-menu {
-  margin: 0;
-  padding: 0;
-  z-index: 9998;
-  background-color: #3a3633;
   position: fixed;
   top: 0;
   bottom: 0;
   right: 0;
-  width: 200px;
+  width: 210px;
+  margin: 0;
+  padding: 0;
+  z-index: 9998;
+
+  background-color: #3a3633;
+
   list-style: none;
 }
 
@@ -25,8 +26,9 @@
   padding: 15px;
   margin-bottom: 15px;
   border-bottom: 1px solid #525151;
-  font-weight: bold;
+
   text-transform: uppercase;
+  font-weight: bold;
   color: #fff;
 }
 
@@ -41,7 +43,6 @@
 
 .navbar-menuitem a:hover {
   color: #fff;
-  text-decoration: none;
 }
 
 .navbar-menuitem.ativo {

@@ -1,6 +1,5 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,13 +8,11 @@ import { MessageService } from 'primeng/api';
 })
 export class AppComponent {
 
-  constructor(
-    private mensagem: MessageService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   exibindoNavbar() {
     return this.router.url !== '/login';
   }
+
 }
 

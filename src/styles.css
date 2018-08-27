@@ -1,4 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
+/* CSS GLOBAL*/
+
+/* Corpo */
 body {
   margin: 0px;
   font-family: Arial, Helvetica, sans-serif;
@@ -6,19 +8,23 @@ body {
 
 }
 
+/* Label dos campos */
 label {
   font-weight: bold;
 }
 
+/* Links */
 a {
   color: #337ab7;
   text-decoration: none;
 }
 
+/* Links com mouse sobre e foco */
 a:hover, a:focus {
   text-decoration: underline;
 }
 
+/* Tamanho de tela */
 @media (min-width: 1200px) {
   .container {
     margin: 0 auto;
@@ -26,6 +32,7 @@ a:hover, a:focus {
   }
 }
 
+/* Colunas das tabelas */
 .col-valor {
   width: 120px;
   text-align: right;

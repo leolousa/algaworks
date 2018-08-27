@@ -1,22 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+import { environment } from './../../environments/environment';
+import { MoneyHttp } from '../seguranca/money-http';
+
+@Injectable()
 export class CategoriaService {
 
-  categoriasUrl = 'http://localhost:8080/categorias';
+  categoriasUrl: string;
 
-  constructor(private http: Http) { }
-
-  listaTodas(): Promise<any> {
-    const cabecalho = new Headers();
-
-    cabecalho.append('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==');
-
-    return this.http.get(`${this.categoriasUrl}` , { headers: cabecalho })
-      .toPromise()
-      .then(response => response.json());
+  constructor(private http: MoneyHttp) {
+    this.categoriasUrl = `${environment.apiUrl}/categorias`;
   }
+
+  listarTodas(): Promise<any> {
+    return this.http.get(this.categoriasUrl)
+      .toPromise();
+  }
+
 }
