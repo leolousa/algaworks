@@ -1,7 +1,7 @@
 import { SharedModule } from './../shared/shared.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '../../../node_modules/@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '../../../node_modules/@angular/forms';
 
 import { MessagesModule } from 'primeng/messages';
 import { DropdownModule } from 'primeng/dropdown';
@@ -24,6 +24,7 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     InputTextModule,
     ButtonModule,
